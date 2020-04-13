@@ -41,7 +41,6 @@ function fetchInfo() {
     .then(function(quote) {
       console.log('data decoded from JSON:', quote);
       const quoteHtml = `
-        
         <img src="${quote[0].image}" />
         <h3><em>"${quote[0].quote}"</em></h3>
         <p><strong>-${quote[0].character}</strong></p>
