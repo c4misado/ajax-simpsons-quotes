@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -11,6 +11,7 @@
   <link rel='stylesheet' href='https://unpkg.com/bulma@0.7.5/css/bulma.min.css'>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
     integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
   <style>
   </style>
 </head>
@@ -18,20 +19,43 @@
 <body>
   <section class="section">
     <div class="container">
-      <h1 class="title">Chuck Norris Jokes</h1>
-      <p>Reload for another joke!</p>
-
-      <div class="content" id="chuck-norris">
+      <h1 class="title">The Simpsons Quotes</h1>
+      <button id="getQuote">Get New Quote</button>
+      <div class="content" id="the-simpsons">
       </div>
     </div>
 
   </section>
 
   <!-- We need to load axios first! -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous">
+  </script>
   <script>
+function fetchInfo() {
+  const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
+  document.getElementById('getQuote').addEventListener('click',fetchInfo);
+  axios.get(url)
+    .then(function(response) {
+      return response.data;
+    })
+    .then(function(quote) {
+      console.log('data decoded from JSON:', quote);
+      const quoteHtml = `
+        
+        <img src="${quote[0].image}" />
+        <h3><em>"${quote[0].quote}"</em></h3>
+        <p><strong>-${quote[0].character}</strong></p>
+      `;
+      document.querySelector('#the-simpsons').innerHTML = quoteHtml;
+    });
+}
+
+fetchInfo();
 
   </script>
 </body>
 
 </html>
+
+
+
